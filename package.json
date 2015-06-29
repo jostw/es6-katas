@@ -1,0 +1,11 @@
+{
+  "name": "es6-takas",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "npm test"
+  },
+  "author": "jos",
+  "license": "MIT"
+}
