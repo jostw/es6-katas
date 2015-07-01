@@ -1,8 +1,7 @@
 {
   "name": "es6-takas",
   "version": "1.0.0",
-  "description": "",
-  "main": "app.js",
+  "description": "ES6 taka practices from http://es6katas.org/",
   "scripts": {
     "test": "mocha --compilers js:babel/register tests/*.js"
   },
