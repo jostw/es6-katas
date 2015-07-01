@@ -7,7 +7,7 @@ describe('tagged template strings', function() {
 
   it('are preceeded by an expression, `toUpper` in this case', function() {
     function toUpper(s) {
-      return s.toString().toLowerCase();
+      return s.toString().toUpperCase();
     }
     assert.equal(toUpper`Go up!`, 'GO UP!');
   });
@@ -16,14 +16,14 @@ describe('tagged template strings', function() {
 
     it('the strings in the template', function() {
       function toText(stringsArray) {
-        return stringsArray[0] + 'one';
+        return stringsArray[0] + ' = one';
       }
       assert.equal(toText`uno${1}`, 'uno = one');
     });
 
     it('the first value in the template', function() {
       function firstValueOnly(stringsArray, firstValue, secondValue) {
-        return secondValue;
+        return firstValue;
       }
       var one = 1;
       var two = 2;
@@ -32,7 +32,7 @@ describe('tagged template strings', function() {
 
     it('all values in the template', function() {
       function valuesOnly(stringsArray, ...valuesArray) { // using the new ES6 rest syntax
-        return valuesArray;
+        return valuesArray.join("; ");
       }
       var one = 1;
       var two = 2;
@@ -41,7 +41,7 @@ describe('tagged template strings', function() {
 
     it('can also return an object', function() {
       function extractAll(stringsArray, ...valuesArray) {
-        return stringsArray + valuesArray;
+        return { strings: stringsArray, values: valuesArray };
       }
       var one = 1;
       var two = 2;
