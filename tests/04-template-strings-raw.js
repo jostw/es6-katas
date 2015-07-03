@@ -1,7 +1,7 @@
 // 4: template strings - String.raw
 // To do: make all tests pass, leave the asserts unchanged!
 
-var assert = require("chai").assert;
+var assert = require("assert");
 
 describe('on tagged template strings you can use String.raw', function() {
 

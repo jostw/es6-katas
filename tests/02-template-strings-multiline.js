@@ -1,7 +1,7 @@
 // 2: template strings - multiline
 // To do: make all tests pass
 
-var assert = require("chai").assert;
+var assert = require("assert");
 
 describe('template string, can be multiline', function() {
 
