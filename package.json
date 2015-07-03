@@ -1,7 +1,7 @@
 {
-  "name": "es6-takas",
+  "name": "es6-katas",
   "version": "1.0.0",
-  "description": "ES6 taka practices from http://es6katas.org/",
+  "description": "ES6 kata practices from http://es6katas.org/",
   "scripts": {
     "test": "mocha --compilers js:babel/register tests/*.js"
   },
