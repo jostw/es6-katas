@@ -1,2 +1,2 @@
-# es6-takas
-ES6 taka practices from http://es6katas.org/
+# ES6 Katas
+ES6 kata practices from http://es6katas.org/
