@@ -10,11 +10,11 @@ describe('new shorthands for objects', () => {
 
   describe('with variables', () => {
     it('use the variables name as key', () => {
-      const short = {x};
+      const short = {y};
       assert.deepEqual(short, {y: y});
     });
     it('works with many too', () => {
-      const short = {x, y: z};
+      const short = {x, y};
       assert.deepEqual(short, {x: x, y: y});
     });
   });
@@ -24,18 +24,18 @@ describe('new shorthands for objects', () => {
     const func = () => func;
 
     it('uses its name', () => {
-      const short = {it};
+      const short = {func};
       assert.deepEqual(short, {func: func});
     });
 
     it('different key must be given explicitly, just like before ES6', () => {
-      const short = {func};
+      const short = {otherKey: func};
       assert.deepEqual(short, {otherKey: func});
     });
 
     it('inline function, no need for `function(){}`', () => {
       const short = {
-        inlineFunc: 'I am inline'
+        inlineFunc: () => 'I am inline'
       };
       assert.deepEqual(short.inlineFunc(), 'I am inline');
     });
