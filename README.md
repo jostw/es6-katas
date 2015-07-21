@@ -22,7 +22,7 @@ Checkout to the branch **katas** for practicing.
 git checkout katas
 ```
 
-My fixes with the katas are in the commits with message ``` fix xxx.js ```. 
+My fixes with the katas are in the commits with message ` fix xxx.js `. 
 Just show it if you can't get it right!
 
 ## Contribute
