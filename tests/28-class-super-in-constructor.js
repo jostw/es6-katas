@@ -7,8 +7,9 @@ describe('class', () => {
 
   it('if you `extend` a class, use `super()` to call the parent constructor', () => {
     class A {constructor() { this.levels = 1; }}
-    class B {
+    class B extends A {
       constructor() {
+        super();
         this.levels++;
       }
     }
@@ -20,7 +21,7 @@ describe('class', () => {
     class A {constructor(startValue=1, addTo=1) { this.counter = startValue + addTo; }}
     class B extends A {
       constructor(...args) {
-        super();
+        super(...args);
         this.counter++;
       }
     }
@@ -32,8 +33,8 @@ describe('class', () => {
     class A {inc() { this.countUp = 1; }}
     class B extends A {
       inc() {
-        super.inc();
         this.countUp = 2;
+        super.inc();
         return this.countUp;
       }
     }
@@ -45,7 +46,7 @@ describe('class', () => {
     class A extends null {
       constructor() {
         super();
-        this.isTop = !!super.constructor;
+        this.isTop = !super.constructor;
       }
     }
 
