@@ -9,7 +9,15 @@ var assert = require("assert");
 
 describe('A simple iterable without items inside, implementing the right protocol', () => {
 
-  function iteratorFunction() {}
+  function iteratorFunction() {
+    return {
+      next: function() {
+        return {
+          done: true
+        }
+      }
+    }
+  }
 
   describe('the `iteratorFunction` needs to comply to the iterator protocol', function() {
     it('must return an object', function() {
@@ -25,7 +33,8 @@ describe('A simple iterable without items inside, implementing the right protoco
 
   let iterable;
   beforeEach(function() {
-    iterable;
+    iterable = {};
+    iterable[Symbol.iterator] = iteratorFunction;
   });
 
   describe('the iterable', function() {
@@ -39,26 +48,26 @@ describe('A simple iterable without items inside, implementing the right protoco
 
   describe('using the iterable', function() {
     it('it contains no values', function() {
-      let values;
+      let values = 0;
       for (let value of iterable) {
-        values += value;
+        values++;
       }
-      assert.equal(values, '');
+      assert.equal(values, 0);
     });
 
     it('has no `.length` property', function() {
-      const hasLengthProperty = iterable;
+      const hasLengthProperty = 'length' in iterable;
       assert.equal(hasLengthProperty, false);
     });
 
     describe('can be converted to an array', function() {
       it('using `Array.from()`', function() {
-        const arr = iterable;
+        const arr = Array.from(iterable);
         assert.equal(Array.isArray(arr), true);
       });
 
       it('where `.length` is still 0', function() {
-        const arr = iterable;
+        const arr = Array.from(iterable);
         const length = arr.length;
         assert.equal(length, 0);
       });
