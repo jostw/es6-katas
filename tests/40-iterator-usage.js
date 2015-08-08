@@ -30,12 +30,15 @@ describe('Iterator usages', () => {
     function iteratorFunction() {
       return {
         next: function() {
-          return {value: consumableUsers.nextUser, done: consumableUsers.anyLeft}
+          const anyLeft = consumableUsers.anyLeft;
+          return {value: consumableUsers.nextUser, done: !anyLeft}
         }
       }
     }
 
-    usersIterable = {};
+    usersIterable = {
+      [Symbol.iterator]: iteratorFunction
+    };
   });
 
   describe('create an iterator/iterable', function() {
@@ -73,7 +76,7 @@ describe('Iterator usages', () => {
       });
       it('should return `done:true`, which means there are no more items', function() {
         iterator.next();
-        iterator.___();
+        iterator.next();
         const beyondLast = iterator.next();
         assert.deepEqual(beyondLast, {value: void 0, done: true});
       })
@@ -82,20 +85,20 @@ describe('Iterator usages', () => {
 
     describe('using built-in constructs', function() {
       it('use `Array.from()` to convert an iterable to an array', function() {
-        const users = usersIterable;
+        const users = Array.from(usersIterable);
         assert.deepEqual(users, ['user: Alice', 'user: Bob']);
       });
       it('use for-of to loop over an iterable', function() {
         const users = [];
-        for (let user in usersIterable) users.push(user);
+        for (let user of usersIterable) users.push(user);
         assert.deepEqual(users, ['user: Alice', 'user: Bob']);
       });
       it('use the spread-operator to convert/add iterable to an array', function() {
-        const users = ['noname', usersIterable];
+        const users = ['noname', ...usersIterable];
         assert.deepEqual(users, ['noname', 'user: Alice', 'user: Bob']);
       });
       it('destructure an iterable like an array', function() {
-        const {firstUser, secondUser} = usersIterable;
+        const [firstUser, secondUser] = usersIterable;
         assert.equal(firstUser, 'user: Alice');
         assert.equal(secondUser, 'user: Bob');
       })
