@@ -18,7 +18,7 @@ describe('a generator returns an iterable object', function() {
 
   it('a generator returns an object', function() {
     const theType = typeof generator;
-    const expected = 'function';
+    const expected = 'object';
 
     assert.equal(theType, expected);
   });
@@ -26,7 +26,7 @@ describe('a generator returns an iterable object', function() {
   it('a generator object has an iterator, which is a function', function() {
     const iterator = generator[Symbol.iterator];
     const theType = typeof iterator;
-    const expected = 'object';
+    const expected = 'function';
 
     assert.equal(theType, expected);
   });
@@ -34,7 +34,7 @@ describe('a generator returns an iterable object', function() {
   it('can be looped with `for-of`, which expects an iterable', function() {
 
     function iterateForOf(){
-      for (let value of {}) {
+      for (let value of generator) {
         // no statements needed
       }
     }
