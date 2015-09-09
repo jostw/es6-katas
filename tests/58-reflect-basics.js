@@ -7,17 +7,17 @@ describe('`Reflect` basics', function() {
 
   describe('Reflect is special, it is different to e.g. `Object`', function() {
     it('is not a function', function() {
-      const expectedType = 'not a function!';
+      const expectedType = 'object';
       assert.equal(typeof Reflect, expectedType);
     });
 
     it('it can not be instantiated', function() {
-      const tryToConstruct = () => { Reflect; };
+      const tryToConstruct = () => { new Reflect(); };
       assert.throws(tryToConstruct, TypeError);
     });
 
     it('has no `call` method (as opposed to e.g. Object)', function() {
-      const expected = 'function';
+      const expected = 'undefined';
       assert.equal(typeof Reflect.call, expected);
     });
 
@@ -26,17 +26,17 @@ describe('`Reflect` basics', function() {
   describe('some `Reflect` usages', function() {
 
     it('`Reflect.construct()` is like new', function() {
-      let Class;
+      let Class = () => {};
       assert.equal(Reflect.construct(Class) instanceof Class, true);
     });
 
     it('`Reflect.get()` returns a property`s value', function() {
-      let obj = {x: 42};
+      let obj = {x: 23};
       assert.equal(Reflect.get(obj, 'x'), 23);
     });
 
     it('`Reflect.has()` is like `in` just as a function', function() {
-      let obj = {};
+      let obj = {x: 23};
       assert.equal(Reflect.has(obj, 'x'), true);
     });
 
