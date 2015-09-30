@@ -7,26 +7,26 @@ describe('`Reflect.construct` is the `new` operator as a function', function() {
 
   describe('the function itself', function() {
     it('is static on the `Reflect` object', function() {
-      const name = 'konstructor';
+      const name = 'constructor';
       assert.equal(name in Reflect, true);
     });
     it('is of type `function`', function() {
-      const expectedType = '???';
+      const expectedType = 'function';
       assert.equal(typeof Reflect.construct, expectedType)
     });
   });
 
   describe('the 1st parameter is the constructor to be invoked', function() {
     it('fails when given a number as constructor', function() {
-      let aNumber = () => {};
+      let aNumber = 0;
       assert.throws(() => { Reflect.construct(aNumber) }, TypeError);
     });
     it('works giving a function', function() {
-      let aFunction;
+      let aFunction = () => {};
       assert.doesNotThrow(() => { Reflect.construct(aFunction) });
     });
     it('works giving a class', function() {
-      const aClass = {};
+      const aClass = class {};
       assert.doesNotThrow(() => { Reflect.construct(aClass) });
     });
   });
@@ -35,15 +35,15 @@ describe('`Reflect.construct` is the `new` operator as a function', function() {
 
     const aClass = class {};
     it('fails when it`s not an array(-like), e.g. a number', function() {
-      let aNumber;
+      let aNumber = 0;
       assert.throws(() => { Reflect.construct(aClass, aNumber) }, TypeError);
     });
     it('works with an array-like object (the `length` property look up should not throw)', function() {
-      let arrayLike = {get length() { throw new Error(); }};
+      let arrayLike = { get length() {} };
       assert.doesNotThrow(() => { Reflect.construct(aClass, arrayLike) });
     });
     it('works with a real array', function() {
-      let realArray = '';
+      let realArray = [];
       assert.doesNotThrow(() => { Reflect.construct(aClass, realArray) });
     });
   });
@@ -52,7 +52,7 @@ describe('`Reflect.construct` is the `new` operator as a function', function() {
 
     it('giving it a class it returns an instance of this class', function() {
       class Constructable {}
-      let instance; // use Reflect.construct here!!!
+      let instance = Reflect.construct(Constructable); // use Reflect.construct here!!!
 
       assert.equal(instance instanceof Constructable, true);
     });
@@ -62,13 +62,13 @@ describe('`Reflect.construct` is the `new` operator as a function', function() {
         constructor(...args) { this.args = args; }
       }
       it('if none given, nothing is passed', function() {
-        let instance = Reflect.construct(Constructable, [1]);
+        let instance = Reflect.construct(Constructable, []);
 
         assert.deepEqual(instance.args, []);
       });
       it('passing an array, all args of any type are passed', function() {
         const argumentsList = ['arg1', ['arg2.1', 'arg2.2'], {arg: 3}];
-        let instance = Reflect.construct;
+        let instance = Reflect.construct(Constructable, argumentsList);
 
         assert.deepEqual(instance.args, argumentsList);
       });
@@ -77,7 +77,7 @@ describe('`Reflect.construct` is the `new` operator as a function', function() {
 
   describe('the length property', function() {
     it('of `Reflect.construct` is 2', function() {
-      let expected;
+      let expected = 2;
       assert.equal(Reflect.construct.length, expected);
     });
   });
